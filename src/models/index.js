@@ -7,6 +7,7 @@ const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
+
 const db = {};
 
 let sequelize;
@@ -36,6 +37,12 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+
+// ✅ Relaciones (ahora que los modelos están cargados)
+db.Usuario.hasMany(db.Prestamo, { foreignKey: 'usuarioId' });
+db.Libro.hasMany(db.Prestamo, { foreignKey: 'libroId' });
+db.Prestamo.belongsTo(db.Usuario, { foreignKey: 'usuarioId' });
+db.Prestamo.belongsTo(db.Libro, { foreignKey: 'libroId' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

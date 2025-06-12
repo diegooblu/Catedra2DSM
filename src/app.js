@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth.routes');
 const bookRoutes = require('./routes/book.routes');
+const loanRoutes = require('./routes/loan.routes');
 
 const app = express();
 
@@ -13,5 +14,6 @@ app.use(express.json());
 // Rutas
 app.use('/api', authRoutes);
 app.use('/api', bookRoutes);
+app.use('/api', loanRoutes);
 
 module.exports = app;
